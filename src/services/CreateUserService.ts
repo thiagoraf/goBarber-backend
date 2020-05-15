@@ -18,7 +18,7 @@ class CreateUserService {
         });
 
         if (checkUserExists) {
-            throw new AppError('Only authenticated users can change avatar.');
+            throw new AppError('User already exists');
         }
 
         const hashedPassword = await hash(password, 8);
