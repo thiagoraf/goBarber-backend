@@ -27,6 +27,7 @@ class CreateAppointmentService {
         );
 
         if (findAppointmentsInSameDate) {
+            console.log('tnc!!!');
             throw new AppError('This appointment is already booked!');
         }
 
