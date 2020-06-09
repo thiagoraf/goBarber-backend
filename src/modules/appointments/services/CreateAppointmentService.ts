@@ -4,6 +4,7 @@ import { startOfHour, isBefore, getHours, format } from 'date-fns';
 import Appointment from '@modules/appointments/infra/typeorm/entities/Appointment';
 import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
     provider_id: string;
@@ -18,7 +19,10 @@ class CreateAppointmentService {
         private appointmentsRepository: IAppointmentsRepository,
 
         @inject('NotificationsRepository')
-        private notificationsRepository: INotificationsRepository
+        private notificationsRepository: INotificationsRepository,
+
+        @inject('CacheProvider')
+        private cacheProvider: ICacheProvider
     ) {}
 
     public async execute({
@@ -51,7 +55,6 @@ class CreateAppointmentService {
         );
 
         if (findAppointmentsInSameDate) {
-            console.log('tnc!!!');
             throw new AppError('This appointment is already booked!');
         }
 
@@ -67,6 +70,13 @@ class CreateAppointmentService {
             recipient_id: provider_id,
             content: `Novo agendamento para dia ${dateFormatted}`,
         });
+
+        await this.cacheProvider.invalidate(
+            `provider-appointments:${provider_id}:${format(
+                appointmentDate,
+                'yyyy-M-d'
+            )}`
+        );
 
         return appointment;
     }
