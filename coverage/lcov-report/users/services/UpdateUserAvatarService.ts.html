@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -105,15 +105,13 @@
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
 <a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L49'></a><a href='#L49'>49</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -129,27 +127,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -160,12 +154,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { inject, injectable } from 'tsyringe';</span>
-<span class="cstat-no" title="statement not covered" >import path from 'path';</span>
-<span class="cstat-no" title="statement not covered" >import fs from 'fs';</span>
+import path from 'path';
+import fs from 'fs';
 import User from '@modules/users/infra/typeorm/entities/User';
-<span class="cstat-no" title="statement not covered" >import uploadConfig from '@config/upload';</span>
+import uploadConfig from '@config/upload';
 <span class="cstat-no" title="statement not covered" >import AppError from '@shared/errors/AppError';</span>
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 &nbsp;
 interface IRequest {
     user_id: string;
@@ -176,11 +171,14 @@ interface IRequest {
 <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >class <span class="cstat-no" title="statement not covered" >U</span></span>pdateUserAvatarService {</span>
 <span class="fstat-no" title="function not covered" >    constructor(</span>
         @inject('UsersRepository')
-        private <span class="cstat-no" title="statement not covered" >usersRepository: IUsersRepository</span>
+        private <span class="cstat-no" title="statement not covered" >usersRepository: IUsersRepository,</span>
+&nbsp;
+        @inject('StorageProvider')
+        private <span class="cstat-no" title="statement not covered" >storageProvider: IStorageProvider</span>
     ) {}
 &nbsp;
 <span class="fstat-no" title="function not covered" >    public async <span class="cstat-no" title="statement not covered" >e</span>xecute({ <span class="cstat-no" title="statement not covered" >user_id,</span> <span class="cstat-no" title="statement not covered" >avatarFilename </span>}: IRequest): Promise&lt;User&gt; {</span>
-        const <span class="cstat-no" title="statement not covered" >user = <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >await this.usersRepository.findById(user_id);</span></span></span>
+        const <span class="cstat-no" title="statement not covered" >user = <span class="cstat-no" title="statement not covered" >await this.usersRepository.findById(user_id);</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (!user) {</span>
 <span class="cstat-no" title="statement not covered" >            throw new AppError(</span>
@@ -190,19 +188,12 @@ interface IRequest {
         }
 &nbsp;
         if (<span class="cstat-no" title="statement not covered" >user.</span>avatar) {
-            const <span class="cstat-no" title="statement not covered" >userAvatarFilePath = path.join(</span>
-                uploadConfig.directory,
-                user.avatar
-            );
-            const <span class="cstat-no" title="statement not covered" >userAvatarFileExists = <span class="cstat-no" title="statement not covered" >await fs.promises.stat(</span></span>
-                userAvatarFilePath
-            );
-&nbsp;
-            if (<span class="cstat-no" title="statement not covered" >userAvatarFileExists)</span> {
-<span class="cstat-no" title="statement not covered" >                await fs.promises.unlink(userAvatarFilePath);</span>
-            }
+<span class="cstat-no" title="statement not covered" >            await this.storageProvider.deleteFile(user.avatar);</span>
         }
-<span class="cstat-no" title="statement not covered" >        user.avatar = avatarFilename;</span>
+&nbsp;
+        const <span class="cstat-no" title="statement not covered" >filename = <span class="cstat-no" title="statement not covered" >await this.storageProvider.saveFile(avatarFilename);</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        user.avatar = filename;</span>
 <span class="cstat-no" title="statement not covered" >        await this.usersRepository.save(user);</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return user;</span>
@@ -217,7 +208,7 @@ interface IRequest {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu May 28 2020 12:34:05 GMT-0300 (GMT-03:00)
+                at Tue Jun 09 2020 17:20:18 GMT-0300 (GMT-03:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>
